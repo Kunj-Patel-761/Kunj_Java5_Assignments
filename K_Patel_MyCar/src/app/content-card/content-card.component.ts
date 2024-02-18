@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { ContentList } from '../helper-files/content-list';
-
 
 @Component({
   selector: 'app-content-card',
@@ -10,8 +8,8 @@ import { ContentList } from '../helper-files/content-list';
   styleUrl: './content-card.component.scss'
 })
 export class ContentCardComponent {
- 
+
 }
 
 
-// content badli kadh movie name and all {id sivay badhu}, then commit  
+ 
