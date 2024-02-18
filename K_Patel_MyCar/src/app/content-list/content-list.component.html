@@ -1,0 +1,8 @@
+<div *ngFor="let content of contentItems; let first = first" class="content-card" [ngClass]="{'first-card': first}">
+    <h3>{{ content.title }}</h3>
+    <img [src]="content.image" alt="{{ content.title }}" (click)="logContentDetails(content)">
+    <p>{{ content.description }}</p>
+    <p>Creator: {{ content.creator }}</p>
+    <p *ngIf="content.type">Type: {{ content.type }}</p>
+    <p *ngIf="content.tags && content.tags.length > 0">Tags: {{ content.tags.join(', ') }}</p>
+  </div>
