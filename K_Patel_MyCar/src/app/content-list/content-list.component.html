@@ -1,19 +1,17 @@
-<div *ngFor="let contentItem of contentItems; let isFirst = first" class="styled-content-card" (click)="displayContentInfo(contentItem)" [class.first-item]="isFirst">
-    <div>
-      <img [src]="contentItem.imgURL" alt="{{ contentItem.title }}" height="250px" width="200px">
-    </div>
-    <div>
-      <h2>{{ contentItem.title }}</h2>
-      <div class="description">
-        <p><strong>Description:</strong> {{ contentItem.description }}</p>
-      </div>
-      <div>
-        <p><strong>Creator:</strong> {{ contentItem.manufacturer }}</p>
-        <p *ngIf="contentItem.type"><strong>Type:</strong> {{ contentItem.type }}</p>
-      </div>
-      <div *ngIf="contentItem.tags && contentItem.tags.length > 0">
-        <p><strong>Tags:</strong> {{ contentItem.tags.join(', ') }}</p>
-      </div>
-    </div>
-  </div>
-  
+<input type="text" [(ngModel)]="searchTitle" placeholder="Enter title">
+<button (click)="checkContentExists()">Check Car Existence</button>
+
+<p [ngStyle]="{'color': contentExists ? 'green' : 'red'}">{{ message }}</p>
+
+<section>
+<h1>Empty</h1>
+<app-content-card *ngFor="let contentItem of contentItems | filterContent: ''" [contentItem]="contentItem"></app-content-card>
+</section>
+<section>
+<h1>Sedan</h1>
+<app-content-card *ngFor="let contentItem of contentItems | filterContent: 'Adventure'" [contentItem]="contentItem"></app-content-card>
+</section>
+<section>
+<h1>SUV</h1>
+<app-content-card *ngFor="let contentItem of contentItems | filterContent: 'Action'" [contentItem]="contentItem"></app-content-card>
+</section>
