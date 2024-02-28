@@ -4,11 +4,12 @@ import { Content } from '../helper-files/content-interface';
 import { ContentCardComponent } from '../content-card/content-card.component';
 import { FilterContentPipe } from '../filter-content.pipe';
 import { FormsModule } from '@angular/forms';
+import { HoverAffectDirective } from '../hover-affect.directive';
 
 @Component({
   selector: 'app-content-list',
   standalone: true,
-  imports: [CommonModule, ContentCardComponent, FilterContentPipe, FormsModule],
+  imports: [CommonModule, ContentCardComponent, FilterContentPipe, FormsModule, HoverAffectDirective],
   templateUrl: './content-list.component.html',
   styleUrl: './content-list.component.scss'
 })
@@ -72,7 +73,7 @@ export class ContentListComponent implements OnInit {
         title: "Chevrolet Silverado",
         description: "The Chevrolet Silverado is a powerful and durable full-size pickup truck, known for its towing capacity and off-road capabilities.",
         manufacturer: "Chevrolet",
-        imgURL: "https://th.bing.com/th/id/R.161d964ef62d98f6c1d22e16dbf4c9aa?rik=44jWm%2bS6W5hYXw&pid=ImgRaw&r=0",
+        imgURL: "",
         type: "SUV",
         tags: ["Powerful", "Durable", "Towing"]
       },
