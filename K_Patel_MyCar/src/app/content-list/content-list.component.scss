@@ -1,0 +1,24 @@
+.content-card {
+    border: 3px solid #ff0000;
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  .first-item {
+    border: 2px solid #000000;
+    padding: 20px;
+    margin: 45px;
+  }
+
+  section{
+    background-color: rgb(0, 13, 255);
+    color: rgb(2, 204, 255);
+  }
+  section:nth-of-type(2){
+    background-color:rgb(141, 93, 252);
+    color:rgb(0, 0, 0);
+  }
+  section:last-of-type{
+    background-color:gray;
+    color: black;
+  }
