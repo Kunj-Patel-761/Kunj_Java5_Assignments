@@ -1,6 +1,6 @@
 {
   "name": "k-patel-my-car",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
