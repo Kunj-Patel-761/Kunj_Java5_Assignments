@@ -8,11 +8,12 @@ import { HoverAffectDirective } from '../hover-affect.directive';
 import { CarService } from '../car.service';
 import { MessageService } from '../message.service';
 import { Observable } from 'rxjs';
+import { ModifyContentComponent } from '../modify-content/modify-content.component';
 
 @Component({
   selector: 'app-content-list',
   standalone: true,
-  imports: [CommonModule, ContentCardComponent, FilterContentPipe, FormsModule, HoverAffectDirective],
+  imports: [CommonModule, ContentCardComponent, FilterContentPipe, FormsModule, HoverAffectDirective, ModifyContentComponent],
   templateUrl: './content-list.component.html',
   styleUrl: './content-list.component.scss'
 })
@@ -21,33 +22,56 @@ export class ContentListComponent implements OnInit {
     console.log(`ID: ${contentItem.id} and Title: ${contentItem.title}`);
     }
 
+  @Input() contentItems: Content[] = [];
+  @Input() items:Content[] = [];
   searchTitle: string = '';
   contentExists: boolean = false;
   message: string = '';  
   selectedTitle: string | null = null;
 
+
+  id:any;
+  selectedContent?: Content;
   checkContentExists() {
     const foundItem = this.contentItems.find(item => item.title.toLowerCase() === this.searchTitle.toLowerCase());
     this.contentExists = !!foundItem;
     this.message = foundItem ? 'Content item exists.' : 'Content item does not exist.';
     this.selectedTitle = foundItem ? foundItem.title : null;
   }
-  selectedContent?: Content;
-  @Input () contentItems: Content[] = [];
-  @Input() items:Content[] = [];
+  getBookById(){
+    return 
+   // console.log("Clicked");
+   }
 
 
-  constructor(private Car:CarService , private messageService: MessageService){}
-  ngOnInit(): void {
-    this.Car.getContentObs().subscribe(content => this.contentItems = content);
-    this.Car.getContentById(4).subscribe(content=> this.items = content);
-    console.log(this.items);   
-  }
+   constructor (private Gameservice:CarService, private MessageService: MessageService){ }
+   ngOnInit() {
+     this.Carservice.getContentObs().subscribe(content => this.contentItems = content);
+     this.Carservice.getContentById(3).subscribe(content=> this.items = content);
+     console.log(this.items);
+   }
+   addContentToList(newContentItem: Content): void {
+     this.Gameservice.addContent(newContentItem)
+     .subscribe(newContentFromServer =>
+     this.contentItems.push(newContentFromServer)
+     );
+     }
 
+     updateContentInList(contentItem: Content): void {
+      this.Gameservice.updateContent(contentItem)
+      .subscribe(() =>
+      console.log("Content updated successfully")
+      );
+      }
   onSelect(content: Content):void{
     this.selectedContent = content;
-    this.messageService.add(`Content itme at ${content.id}`);
+    this.MessageService.add(`Content itme at ${content.id}`);
     console.log("clicked");
+  }
+
+  onContentAdded(newContent: Content): void {
+    this.contentItems = [...this.contentItems, newContent];
+    this.MessageService.add('Content added successfully');
   }
  
 }

@@ -1,9 +1,9 @@
 export interface Content{
-    id: number;
+    id?: number;
     title: string;
     description: string;
     manufacturer: string;
-    imgURL?: string;
-    type?: string;
-    tags?: string[];  
+    imgURL: string;
+    type: string;
+    tags: string[];  
 }

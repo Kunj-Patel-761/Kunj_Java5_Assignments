@@ -1,3 +1,4 @@
+<app-modify-content (contentAdded)="onContentAdded($event)"></app-modify-content>
 <input type="text" [(ngModel)]="searchTitle" placeholder="Enter title">
 <button (click)="checkContentExists()">Check Car Existence</button>
 
@@ -5,8 +6,12 @@
 <app-content-card [contentItem]="items"></app-content-card>
 
 
-<!-- Display search result message -->
-<p [ngStyle]="{'color': contentExists ? 'green' : 'red'}">{{ message }}</p>
+<div>
+    <div *ngFor="let content of contentItems">
+      <app-content-card [contentItem]="content"></app-content-card>
+    </div>
+  </div>
+<!-- <p [ngStyle]="{'color': contentExists ? 'green' : 'red'}">{{ message }}</p>
 
 <section>
 <h1>Empty</h1>
