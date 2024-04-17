@@ -1,5 +1,17 @@
+<app-modify-content (contentAdded)="onContentAdded($event)"></app-modify-content>
 <input type="text" [(ngModel)]="searchTitle" placeholder="Enter title">
 <button (click)="checkContentExists()">Check Car Existence</button>
+
+<h1>This is the item display from single id</h1>
+<app-content-card [contentItem]="items"></app-content-card>
+
+
+<div>
+    <div *ngFor="let content of contentItems">
+      <app-content-card [contentItem]="content"></app-content-card>
+    </div>
+  </div>
+
 
 <p [ngStyle]="{'color': contentExists ? 'green' : 'red'}">{{ message }}</p>
 

@@ -11,7 +11,7 @@ import { HoverAffectDirective } from '../hover-affect.directive';
 })
 export class ContentCardComponent {
   @Input() contentItem : any;
-
+  @Input() item:any;
 }
 
 
