@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Content } from './helper-files/content-interface';
-import { CONTENT } from './helper-files/contentDb'; 
+import { CONTENT } from './helper-files/ContentDb'; 
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

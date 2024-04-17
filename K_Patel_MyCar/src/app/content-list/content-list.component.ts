@@ -13,7 +13,7 @@ import { ModifyContentComponent } from '../modify-content/modify-content.compone
 @Component({
   selector: 'app-content-list',
   standalone: true,
-  imports: [CommonModule, ContentCardComponent, FilterContentPipe, FormsModule, HoverAffectDirective, ModifyContentComponent],
+  imports: [CommonModule, ContentCardComponent, TypedeciderPipe, FormsModule, HoverAffectDirective, ModifyContentComponent],
   templateUrl: './content-list.component.html',
   styleUrl: './content-list.component.scss'
 })
@@ -44,21 +44,21 @@ export class ContentListComponent implements OnInit {
    }
 
 
-   constructor (private Gameservice:CarService, private MessageService: MessageService){ }
+   constructor (private Carservice:CarService, private MessageService: MessageService){ }
    ngOnInit() {
      this.Carservice.getContentObs().subscribe(content => this.contentItems = content);
      this.Carservice.getContentById(3).subscribe(content=> this.items = content);
      console.log(this.items);
    }
    addContentToList(newContentItem: Content): void {
-     this.Gameservice.addContent(newContentItem)
+     this.Carservice.addContent(newContentItem)
      .subscribe(newContentFromServer =>
      this.contentItems.push(newContentFromServer)
      );
      }
 
      updateContentInList(contentItem: Content): void {
-      this.Gameservice.updateContent(contentItem)
+      this.Carservice.updateContent(contentItem)
       .subscribe(() =>
       console.log("Content updated successfully")
       );
