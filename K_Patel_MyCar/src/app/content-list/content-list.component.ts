@@ -52,3 +52,8 @@ export class ContentListComponent implements OnInit {
   }
  
 }
+
+onContentCreated(newContent: any) {
+  this.contentItems.push({ ...newContent });
+}
+}
