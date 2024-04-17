@@ -38,30 +38,7 @@ export class ContentListComponent implements OnInit {
     this.message = foundItem ? 'Content item exists.' : 'Content item does not exist.';
     this.selectedTitle = foundItem ? foundItem.title : null;
   }
-  getBookById(){
-    return 
-   // console.log("Clicked");
-   }
 
-
-   constructor (private Carservice:CarService, private MessageService: MessageService){ }
-   ngOnInit() {
-     this.Carservice.getContentObs().subscribe(content => this.contentItems = content);
-     this.Carservice.getContentById(3).subscribe(content=> this.items = content);
-     console.log(this.items);
-   }
-   addContentToList(newContentItem: Content): void {
-     this.Carservice.addContent(newContentItem)
-     .subscribe(newContentFromServer =>
-     this.contentItems.push(newContentFromServer)
-     );
-     }
-
-     updateContentInList(contentItem: Content): void {
-      this.Carservice.updateContent(contentItem)
-      .subscribe(() =>
-      console.log("Content updated successfully")
-      );
       }
   onSelect(content: Content):void{
     this.selectedContent = content;
