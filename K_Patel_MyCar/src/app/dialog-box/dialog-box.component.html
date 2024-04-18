@@ -1,0 +1,32 @@
+<div>
+    <h2 mat-dialog-title> Add New Content</h2>
+    <mat-form-field>
+      <label for="title">Title:</label>
+      <input matInput  type="text" id="title" [(ngModel)]="newContent.title" required>
+    </mat-form-field>
+      
+    <mat-form-field>
+      <label for="description">Description:</label>
+      <input matInput  type="text" id="description" [(ngModel)]="newContent.description" required>
+    </mat-form-field>
+    <mat-form-field>
+      <label for="">Manufacturer:</label>
+      <input matInput  type="text" id="creator" [(ngModel)]="newContent.manufacturer" required>
+    </mat-form-field>
+    <mat-form-field>
+      <label for="imgURL">Image URL:</label>
+      <input matInput  type="text" id="imgURL" [(ngModel)]="newContent.imgURL" required>
+    </mat-form-field>
+    <mat-form-field>
+      <label for="type">Type:</label>
+      <input matInput  type="text" id="type" [(ngModel)]="newContent.type" required>
+    </mat-form-field>
+    <mat-form-field>
+      <label for="tags">Tags:</label>
+      <input matInput  type="text" id="tags" [(ngModel)]="tagsString" required>
+    </mat-form-field>
+
+    
+    <button mat-raised-button color="primary" (click)="onAddClick()">Add Content</button>
+    <button mat-raised-button color="warn" (click)="onCancelClick()">Cancel</button>
+  </div>

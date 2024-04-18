@@ -9,5 +9,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './messages.component.scss'
 })
 export class MessagesComponent {
+  
+  messages: string[] = [];
   constructor(public messageService: MessageService) {}
+
+  ngOnInit(): void {
+    this.messageService.messages$.subscribe((message) => {
+      this.messages.push(message);
+    })
+  }
+  
 }

@@ -1,4 +1,6 @@
-export const CONTENT = [
+  import { Content } from "./content-interface"
+
+  export const contentArray: Content[]  = [
     {
         id: 0,
         title: "Toyota Camry",

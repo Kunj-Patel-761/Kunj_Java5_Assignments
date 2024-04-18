@@ -1,29 +1,12 @@
+
 <app-modify-content (contentAdded)="onContentAdded($event)"></app-modify-content>
-<input type="text" [(ngModel)]="searchTitle" placeholder="Enter title">
-<button (click)="checkContentExists()">Check Car Existence</button>
 
-<h1>This is the item display from single id</h1>
-<app-content-card [contentItem]="items"></app-content-card>
+<div *ngFor="let content of contentArray; 
+let first = first" class="content-card-container" [ngClass]="{'first': first}">
+<app-content-card [content]="content"></app-content-card></div>
 
-
-<div>
-    <div *ngFor="let content of contentItems">
-      <app-content-card [contentItem]="content"></app-content-card>
-    </div>
-  </div>
-
-
-<p [ngStyle]="{'color': contentExists ? 'green' : 'red'}">{{ message }}</p>
-
-<section>
-<h1>Empty</h1>
-<app-content-card *ngFor="let contentItem of contentItems | filterContent: ''" [contentItem]="contentItem"></app-content-card>
-</section>
-<section>
-<h1>Sedan</h1>
-<app-content-card *ngFor="let contentItem of contentItems | filterContent: 'Adventure'" [contentItem]="contentItem"></app-content-card>
-</section>
-<section>
-<h1>SUV</h1>
-<app-content-card *ngFor="let contentItem of contentItems | filterContent: 'Action'" [contentItem]="contentItem"></app-content-card>
-</section>
+<h2>Search: </h2>
+<mat-form-field appearance="fill">
+    <input matInput type="text" name="title" [(ngModel)]="searchTitle" placeholder="Use me to search...">
+</mat-form-field>
+<button mat-button (click)="searchCard()">Submit</button>

@@ -1,16 +1,27 @@
-<div class="content-card" [ngClass]="{
-    'sedan': contentItem.type === 'Sedan',
-    'SUV': contentItem.type === 'SUV',
-    'unspecified': !contentItem.type
-  }">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+      
+<mat-card class="content-card">
+    <mat-card-header class="header">{{ content.title }}</mat-card-header>
 
-  <img [src]="contentItem.imgURL" *ngIf="contentItem.imgURL; else defaultImage" alt="{{ contentItem.title }}" class="content-card-image" height="200px" width="150px">
-  <ng-template #defaultImage>
-    <img src="https://wallpapercave.com/wp/wp11064768.jpg" alt="this is the default image" height="200px" width="250px">
-  </ng-template>
-          <h2>{{ contentItem.title }}</h2>
-          <p><strong>Description:</strong> {{ contentItem.description }}</p>
-          <p><strong>Manufacturer:</strong> {{ contentItem.manufacturer }}</p>
-          <p *ngIf="contentItem.type" appHoverAffect [effect]="'underline'"><strong>Type: </strong>{{ contentItem.type }}</p>
-      <p *ngFor="let tag of contentItem.tags" appHoverAffect><strong>Tags:</strong>{{ tag }}</p>
-      </div>
+
+
+<img mat-card-image *ngIf="content.imgURL; else defaultImg" [src]="content.imgURL" (click)="onCardClick(content)"/>
+
+<ng-template #defaultImg>
+\
+<img mat-card-image class="default" src="https://www.creativefabrica.com/wp-content/uploads/2020/09/17/Fun-Games-Fonts-5538335-1-312x208.png" alt="food" (click)="onCardClick(content)">
+</ng-template>
+
+
+<mat-card-content>
+<p>Description: {{ content.description }}</p>
+
+<p>Manufacturer: {{ content.manufacturer }}</p>
+
+<p appHoverAffect typeStyle="textDecoration">Type: {{ content.type }}</p>
+
+<div *ngFor="let tag of content.tags" appHoverAffect tagStyle="fontWeight">
+  - {{ tag }} 
+</div>
+</mat-card-content>
+</mat-card>

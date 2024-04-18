@@ -9,46 +9,48 @@ import { CarService } from '../car.service';
 import { MessageService } from '../message.service';
 import { Observable } from 'rxjs';
 import { ModifyContentComponent } from '../modify-content/modify-content.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-content-list',
   standalone: true,
-  imports: [CommonModule, ContentCardComponent, TypedeciderPipe, FormsModule, HoverAffectDirective, ModifyContentComponent],
+  imports: [CommonModule, ContentCardComponent, TypedeciderPipe, FormsModule, HoverAffectDirective, ModifyContentComponentComponent, MatButtonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './content-list.component.html',
   styleUrl: './content-list.component.scss'
 })
 export class ContentListComponent implements OnInit {
-  DisplayContentInformation(contentItem: Content) {
-    console.log(`ID: ${contentItem.id} and Title: ${contentItem.title}`);
+  contentArray: Content[] = [];
+  constructor(private carService: CarService, private messageService: MessageService) {}
+    onContentAdded(newContent: Content) {
+      this.contentArray.push(newContent);
+      this.messageService.sendMessage(`Content '${newContent.title}' added successfully!`);
     }
-
-  @Input() contentItems: Content[] = [];
-  @Input() items:Content[] = [];
-  searchTitle: string = '';
-  contentExists: boolean = false;
-  message: string = '';  
-  selectedTitle: string | null = null;
-
-
-  id:any;
-  selectedContent?: Content;
-  checkContentExists() {
-    const foundItem = this.contentItems.find(item => item.title.toLowerCase() === this.searchTitle.toLowerCase());
-    this.contentExists = !!foundItem;
-    this.message = foundItem ? 'Content item exists.' : 'Content item does not exist.';
-    this.selectedTitle = foundItem ? foundItem.title : null;
-  }
-
+    ngOnInit() {
+      this.loadContentArray();
+    }
+  
+    loadContentArray() {
+      this.carService.getContentArray().subscribe((data) => {
+        this.contentArray = data;
+        console.log('Content array loaded!');
+      });
+    }
+    searchTitle: string = '';
+    searchMsg: string = '';
+    searchClr: string = '';
+  
+    searchCard(): void{
+      const foundContent = this.contentArray.find(content => content.title.toLowerCase() === this.searchTitle.toLowerCase()); 
+  
+      if (foundContent) {
+        this.searchMsg = `Content with title "${this.searchTitle}" exists.`;
+        this.searchClr = 'green';
       }
-  onSelect(content: Content):void{
-    this.selectedContent = content;
-    this.MessageService.add(`Content itme at ${content.id}`);
-    console.log("clicked");
+      else {
+        this.searchMsg = `Content with title "${this.searchTitle}" does not exist.`;
+        this.searchClr = 'red';
+      }
+    }
   }
-
-  onContentAdded(newContent: Content): void {
-    this.contentItems = [...this.contentItems, newContent];
-    this.MessageService.add('Content added successfully');
-  }
- 
-}

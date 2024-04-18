@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Content } from './helper-files/content-interface';
-import { CONTENT } from './helper-files/ContentDb'; 
+import { contentArray } from './helper-files/contentDb';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -10,26 +10,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class CarService {
 
-  constructor(private http: HttpClient) { }
-  getContentObs():Observable<Content[]>{
-    return this.http.get<Content[]>("api/content");
-  }
-  getContentById(id:number):Observable<any>{
-    return of(CONTENT.find(item => item.id === id));
-  }
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-type':
-    'application/json' })
-    };
+  private apiUrl = 'api/content';
 
-    addContent(newContentItem: Content):
-      Observable<Content>{
-      return this.http.post<Content>("api/content",
-      newContentItem, this.httpOptions);
-}
-updateContent(contentItem: Content): Observable<any>{
-  return this.http.put("api/content"
-  , contentItem,
-  this.httpOptions);
+  constructor(private messageService:MessageService , private http: HttpClient) { }
+
+  addContent(content: Content): Observable<Content> {
+    return this.http.post<Content>(this.apiUrl, content);
+  }
+
+  getContentArray(): Observable<any[]> {
+    this.messageService.sendMessage('Content array loaded!');
+    return of(contentArray);
+  }
+
+  getContentItemById(id: number): Observable<any> {
+    const contentItem = contentArray.find(item => item.id === id);
+    this.messageService.sendMessage(`Content Item at id: ${id}`);
+    return of(contentItem);
   }
 }
