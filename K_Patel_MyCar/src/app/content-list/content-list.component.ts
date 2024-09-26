@@ -1,20 +1,34 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Content } from '../helper-files/content-interface';
+import { ContentCardComponent } from '../content-card/content-card.component';
+import { FilterContentPipe } from '../filter-content.pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-content-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ContentCardComponent, FilterContentPipe, FormsModule],
   templateUrl: './content-list.component.html',
   styleUrl: './content-list.component.scss'
 })
 export class ContentListComponent implements OnInit {
-  displayContentInfo(contentItem: Content) {
+  DisplayContentInformation(contentItem: Content) {
     console.log(`ID: ${contentItem.id} and Title: ${contentItem.title}`);
     }
   @Input () contentItems: Content[] = [];
 
+  searchTitle: string = '';
+  contentExists: boolean = false;
+  message: string = '';  
+  selectedTitle: string | null = null;
+
+  checkContentExists() {
+    const foundItem = this.contentItems.find(item => item.title.toLowerCase() === this.searchTitle.toLowerCase());
+    this.contentExists = !!foundItem;
+    this.message = foundItem ? 'Content item exists.' : 'Content item does not exist.';
+    this.selectedTitle = foundItem ? foundItem.title : null;
+  }
   ngOnInit(): void {
     this.contentItems =[
       {
@@ -43,6 +57,42 @@ export class ContentListComponent implements OnInit {
         imgURL: "https://th.bing.com/th/id/R.0ff62825cf7fb1466faf8d22540dc9c8?rik=qpvp1J8yflcMRQ&pid=ImgRaw&r=0",
         type: "Pickup Truck",
         tags: ["Rugged", "Versatile", "Towing"]
+      },
+      {
+        id: 3,
+        title: "Honda Accord",
+        description: "The Honda Accord is a reliable and well-rounded midsize sedan, known for its comfort and fuel efficiency.",
+        manufacturer: "Honda",
+        imgURL: "https://th.bing.com/th/id/R.2c5d1f46b5d5f0b25cb31c3f7ed90c1e?rik=B8jU2JOL9V5MOg&pid=ImgRaw&r=0",
+        type: "Sedan",
+        tags: ["Reliable", "Fuel Efficient", "Comfortable"]
+      },
+      {
+        id: 4,
+        title: "Chevrolet Silverado",
+        description: "The Chevrolet Silverado is a powerful and durable full-size pickup truck, known for its towing capacity and off-road capabilities.",
+        manufacturer: "Chevrolet",
+        imgURL: "https://th.bing.com/th/id/R.161d964ef62d98f6c1d22e16dbf4c9aa?rik=44jWm%2bS6W5hYXw&pid=ImgRaw&r=0",
+        type: "SUV",
+        tags: ["Powerful", "Durable", "Towing"]
+      },
+      {
+        id: 5,
+        title: "Nissan Leaf",
+        description: "The Nissan Leaf is an affordable and popular electric hatchback, known for its eco-friendly design and compact size.",
+        manufacturer: "Nissan",
+        imgURL: "https://th.bing.com/th/id/R.3f832fb04c6a724f63194841ed2c9e00?rik=dPp0aAvmWGJrVw&pid=ImgRaw&r=0",
+        type: "Electric Hatchback",
+        tags: ["Electric", "Affordable", "Compact"]
+      },
+      {
+        id: 6,
+        title: "Jeep Wrangler",
+        description: "The Jeep Wrangler is a rugged and iconic off-road SUV, known for its adventurous spirit and open-air driving experience.",
+        manufacturer: "Jeep",
+        imgURL: "https://th.bing.com/th/id/R.772198e7bcdd2c75007e70848e61b1c5?rik=%2b3E7%2fghu2HLyYg&pid=ImgRaw&r=0",
+        type: "SUV",
+        tags: ["Rugged", "Iconic", "Off-Road"]
       }
     ];
   }
